@@ -1,139 +1,595 @@
+/* ==========================================================================
+   CSS CUSTOM PROPERTIES (Variables)
+   ========================================================================== */
 :root {
-    --cream:#f3f0e9;
-    --brown:#966f2c;
-    --gold:#d69e3d;
-    --black:#000;
-    --white:#fff;
+  /* Colors from Figma specifications */
+  --clr-white: #ffffff;
+  --clr-black: #000000;
+  --clr-gold: #d69e3d;
+  --clr-gold-dark: #966f2c;
+  --clr-bg-tan: #f3f0e9;
+  
+  /* Fonts Assignment Requirements */
+  --ff-headings: 'Lato', sans-serif;
+  --ff-body: 'Karla', sans-serif;
+
+  /* Layout Constants */
+  --max-width: 1200px;
+  --transition-smooth: all 0.3s ease-in-out;
 }
 
+/* ==========================================================================
+   KEYFRAME ANIMATIONS
+   ========================================================================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   BASE STYLES & MOBILE-FIRST TYPOGRAPHY
+   ========================================================================== */
+html {
+  scroll-behavior: smooth;
+}
 
 body {
-    font-family:"Karla", sans-serif;
-    background:var(--cream);
-    color:var(--black);
+  background-color: var(--clr-bg-tan);
+  color: var(--clr-black);
+  font-family: var(--ff-body);
+  font-size: 16px; /* p default mobile */
+  line-height: 1.6;
 }
 
-
-h1,h2,h3,nav {
-    font-family:"Lato", sans-serif;
+h1, h2, h3 {
+  font-family: var(--ff-headings);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.2;
 }
 
+/* Mobile Typographies explicitly styled */
+h1 { font-size: 32px; }
+h2 { font-size: 28px; }
+h3 { font-size: 22px; }
+p  { font-size: 16px; }
+
+img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
 
 .wrapper {
-    max-width:1200px;
-    margin:auto;
-    padding:1rem;
+  width: 100%;
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
-
+/* ==========================================================================
+   ACCESSIBILITY KEYELEMENTS
+   ========================================================================== */
 .skip-link {
-    position:absolute;
-    left:-999px;
+  position: absolute;
+  top: -100px;
+  left: 20px;
+  background-color: var(--clr-gold);
+  color: var(--clr-black);
+  padding: 10px 20px;
+  font-weight: bold;
+  z-index: 9999;
+  text-decoration: none;
+  transition: top 0.2s ease;
 }
-
-
 .skip-link:focus {
-    left:0;
+  top: 10px;
 }
 
+/* ==========================================================================
+   COMPLEX SELECTORS (Requirement: At least 3 complex selectors)
+   ========================================================================== */
 
-nav .wrapper {
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+/* Complex Selector 1: Deep descendant tracking list targets under parent nav items */
+.main-nav .nav-list li a {
+  font-family: var(--ff-headings);
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: var(--clr-white);
+  text-decoration: none;
+  font-weight: 700;
+  position: relative;
+  transition: var(--transition-smooth);
 }
 
-
-nav img {
-    width:150px;
+/* Complex Selector 2: Direct child combinator pairing subtext headings directly after subtitles */
+.welcome-text-column > .section-subtitle + h2 {
+  margin-top: 8px;
 }
 
-
-nav ul {
-    display:flex;
-    gap:1rem;
+/* Complex Selector 3: Attribute and child structural filter targeting alternative content */
+.testimonials-grid blockquote.testimonial-card:nth-of-type(even) {
+  background-color: rgba(255, 255, 255, 0.03);
 }
 
-
-.hero img {
-    width:100%;
+/* ==========================================================================
+   REUSABLE INTERACTIVE COMPONENTS (Buttons / Labels)
+   ========================================================================== */
+.section-subtitle {
+  display: block;
+  font-family: var(--ff-headings);
+  color: var(--clr-gold);
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  margin-bottom: 8px;
 }
 
-
-.hero h1 {
-    font-size:2rem;
+.btn {
+  display: inline-block;
+  padding: 12px 32px;
+  font-family: var(--ff-body);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  text-align: center;
+  transition: var(--transition-smooth);
+  border: 2px solid transparent;
 }
 
-
-.button {
-    display:inline-block;
-    background:var(--brown);
-    color:white;
-    padding:1rem 2rem;
-    transition:.3s;
+.btn-transparent {
+  background-color: transparent;
+  color: var(--clr-white);
+  border-color: var(--clr-white);
+}
+.btn-transparent:hover,
+.btn-transparent:focus {
+  background-color: var(--clr-white);
+  color: var(--clr-black);
+  outline: none;
 }
 
-
-.button:hover,
-.button:focus {
-    background:var(--gold);
+.btn-dark {
+  background-color: var(--clr-black);
+  color: var(--clr-white);
+}
+.btn-dark:hover,
+.btn-dark:focus {
+  background-color: var(--clr-gold);
+  color: var(--clr-white);
+  outline: none;
 }
 
-
-.cards {
-    display:grid;
-    gap:2rem;
+/* ==========================================================================
+   SITE HEADER MODULE
+   ========================================================================== */
+.site-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.header-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+.logo-img {
+  height: 45px;
+  width: auto;
+}
+.nav-list {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+}
+.main-nav .nav-list li a:hover,
+.main-nav .nav-list li a:focus {
+  color: var(--clr-gold);
+  outline: none;
 }
 
-
-.cards article {
-    text-align:center;
+/* ==========================================================================
+   HERO SECTION MODULE
+   ========================================================================== */
+.hero-section {
+  position: relative;
+  height: 100vh;
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  color: var(--clr-white);
+  overflow: hidden;
+}
+.hero-bg-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 2;
+}
+.hero-wrapper {
+  position: relative;
+  z-index: 3;
+}
+.hero-content {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  /* Keyframes assignment requirement loaded here */
+  animation: fadeInUp 1s ease-out forwards;
+}
+.hero-content h1 {
+  margin-bottom: 16px;
+}
+.hero-content p {
+  margin-bottom: 32px;
+  color: rgba(255, 255, 255, 0.9);
 }
 
-
-section {
-    padding:3rem 0;
+/* ==========================================================================
+   WELCOME GALLERY SECTION
+   ========================================================================== */
+.welcome-section {
+  padding: 60px 0;
+}
+.welcome-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.welcome-text-column h2 {
+  color: var(--clr-black);
+}
+.welcome-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.gallery-main {
+  width: 100%;
+}
+.gallery-main img {
+  height: 300px;
+  border-radius: 4px;
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.gallery-grid img {
+  height: 140px;
+  border-radius: 4px;
 }
 
-
-@keyframes fade {
-    from {
-        opacity:0;
-        transform:translateY(20px);
-    }
-
-    to {
-        opacity:1;
-        transform:none;
-    }
+/* ==========================================================================
+   FEATURES SECTION
+   ========================================================================== */
+.features-section {
+  padding: 60px 0;
+  text-align: center;
+}
+.features-header {
+  margin-bottom: 40px;
+}
+.features-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.feature-card {
+  background: transparent;
+  padding: 10px;
+}
+.feature-icon-box {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 20px;
+}
+.feature-card h3 {
+  margin-bottom: 12px;
+  color: var(--clr-gold-dark);
+}
+.feature-card p {
+  color: #444444;
+  max-width: 360px;
+  margin: 0 auto;
 }
 
-
-.hero {
-    animation:fade 1s ease;
+/* ==========================================================================
+   DOUBLE SPLIT BANNER SECTION
+   ========================================================================== */
+.banners-section {
+  width: 100%;
+}
+.banner-split {
+  display: flex;
+  flex-direction: column;
+}
+.banner-box {
+  position: relative;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--clr-white);
+  text-align: center;
+  overflow: hidden;
+}
+.banner-bg-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.banner-bg {
+  width: 100%;
+  height: 100%;
+}
+.banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 2;
+}
+.banner-content {
+  position: relative;
+  z-index: 3;
+  padding: 20px;
+}
+.banner-content h2 {
+  margin-bottom: 4px;
+}
+.banner-content p {
+  margin-bottom: 20px;
+  font-family: var(--ff-body);
 }
 
-
-
-@media(min-width:768px){
-
-.hero .wrapper {
-    display:flex;
-    align-items:center;
-    gap:2rem;
+/* ==========================================================================
+   ABOUT US SECTION
+   ========================================================================== */
+.about-section {
+  padding: 60px 0;
+}
+.about-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.about-image-box img {
+  height: 320px;
+  border-radius: 4px;
+}
+.about-content-box p {
+  margin-bottom: 16px;
+  color: #333333;
+}
+.about-content-box .btn {
+  margin-top: 12px;
 }
 
-.cards {
-    grid-template-columns:repeat(3,1fr);
+/* ==========================================================================
+   TESTIMONIALS SECTION (Dark Component)
+   ========================================================================== */
+.testimonials-section {
+  background-color: var(--clr-black);
+  color: var(--clr-white);
+  padding: 80px 0;
+}
+.testimonials-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+.testimonials-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+.testimonial-card {
+  text-align: center;
+  max-width: 450px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.testimonial-img-frame {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--clr-gold);
+}
+.testimonial-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.testimonial-card p {
+  font-size: 16px;
+  font-style: italic;
+  margin-bottom: 16px;
+  line-height: 1.5;
+  position: relative;
+}
+.quote-mark {
+  color: var(--clr-gold);
+  font-weight: bold;
+  font-size: 18px;
+}
+.testimonial-author {
+  display: block;
+  font-family: var(--ff-headings);
+  color: var(--clr-gold);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-style: normal;
+  font-weight: 700;
 }
 
+/* ==========================================================================
+   SITE FOOTER MODULE
+   ========================================================================== */
+.site-footer {
+  background-color: var(--clr-black);
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  padding: 30px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 14px;
 }
 
+/* ==========================================================================
+   TABLET BREAKPOINT MEDIA QUERY (min-width: 768px)
+   ========================================================================== */
+@media (min-width: 768px) {
+  /* Tablet Typography Upgrades */
+  h1 { font-size: 48px; }
+  h2 { font-size: 38px; }
+  h3 { font-size: 28px; }
 
-@media(min-width:1200px){
+  .site-header {
+    padding-top: 30px;
+  }
+  .header-wrapper {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 
-h1 {
-    font-size:3.875rem;
+  .welcome-wrapper {
+    gap: 40px;
+  }
+  .welcome-gallery {
+    flex-direction: row;
+  }
+  .gallery-main {
+    flex: 1.2;
+  }
+  .gallery-main img {
+    height: 360px;
+  }
+  .gallery-grid {
+    flex: 1;
+    grid-template-columns: 1fr;
+  }
+  .gallery-grid img {
+    height: 172px;
+  }
+
+  .features-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+  }
+  .feature-card {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .about-wrapper {
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+  }
+  .about-image-box, 
+  .about-content-box {
+    flex: 1;
+  }
+  .about-image-box img {
+    height: 420px;
+  }
+
+  .testimonials-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+  }
+  .testimonial-card {
+    flex: 1;
+    min-width: 220px;
+    margin: 0;
+  }
 }
 
+/* ==========================================================================
+   DESKTOP BREAKPOINT MEDIA QUERY (min-width: 1024px)
+   ========================================================================== */
+@media (min-width: 1024px) {
+  /* Desktop Typography Upgrades */
+  h1 { font-size: 62px; }
+  h2 { font-size: 48px; }
+  h3 { font-size: 32px; }
+
+  .welcome-wrapper {
+    flex-direction: row;
+    align-items: center;
+    gap: 60px;
+  }
+  .welcome-text-column {
+    flex: 1;
+  }
+  .welcome-gallery {
+    flex: 1.5;
+  }
+
+  .features-grid {
+    gap: 50px;
+  }
+
+  .banner-split {
+    flex-direction: row;
+  }
+  .banner-box {
+    flex: 1;
+    height: 450px;
+  }
+
+  .about-wrapper {
+    gap: 60px;
+  }
+  .about-image-box img {
+    height: 500px;
+  }
+
+  .testimonials-grid {
+    flex-wrap: nowrap;
+    gap: 30px;
+  }
 }
