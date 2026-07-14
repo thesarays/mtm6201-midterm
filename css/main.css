@@ -1,0 +1,26 @@
+:root {
+    --white: #ffffff;
+    --black: #000000;
+    --gold: #d69e3d;
+    --brown: #966f2c;
+    --cream: #f3f0e9;
+}
+
+body {
+    font-family: "Karla", sans-serif;
+    background-color: var(--cream);
+    color: var(--black);
+}
+
+h1,
+h2,
+h3,
+nav {
+    font-family: "Lato", sans-serif;
+}
+
+.wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
